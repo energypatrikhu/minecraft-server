@@ -12,18 +12,6 @@ __dcf-mc-get-env-value() {
   local var_name="$2"
   grep -iE "^$var_name\s*=" "$config_env" | sed -E "s/^$var_name\s*=\s*//I; s/[[:space:]]*$//"
 }
-__dcf-mc-get-java-type() {
-  local config_env="$1"
-  local java_version=$(__dcf-mc-get-env-value "$config_env" "JAVA_VERSION")
-
-  # if version 8 use "graalvm-ce"
-  # else use "graalvm"
-  if [[ "$java_version" == "8" ]]; then
-    echo "graalvm-ce"
-  else
-    echo "graalvm"
-  fi
-}
 __dcf-mc-get-backup-enabled() {
   local config_env="$1"
   local backup_enabled=$(__dcf-mc-get-env-value "$config_env" "BACKUP")
@@ -41,7 +29,6 @@ __dcf-mc() {
   local compose_file_base="$__dcf_mc__compose_base/docker-compose.base.yml"
   local compose_file_full="$__dcf_mc__compose_base/docker-compose.full.yml"
   local config_env="$__dcf_mc__config_env_base/$file_basename.env"
-  local java_type=$(__dcf-mc-get-java-type "$config_env")
   local backup_enabled=$(__dcf-mc-get-backup-enabled "$config_env")
 
   if [[ ! -f "$config_env" ]]; then
@@ -49,11 +36,10 @@ __dcf-mc() {
     return 1
   fi
 
-  # create a tmp env file with the JAVA_TYPE variable
+  # create a tmp env file to hold dynamic variables
   local tmp_env_file=$(mktemp)
   echo "SERVER_TYPE = $server_type" >>"$tmp_env_file"
   echo "SERVER_DIR = $__dcf_mc__server_dir" >>"$tmp_env_file"
-  echo "JAVA_TYPE = $java_type" >>"$tmp_env_file"
 
   echo -e "Starting Minecraft Server"
   if [[ "$backup_enabled" == "true" ]]; then

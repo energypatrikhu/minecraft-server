@@ -1,7 +1,7 @@
 services:
   minecraft-server:
     container_name: mc_${SERVER_TYPE}_${CREATED_AT}_${CONTAINER_NAME:-${MODPACK_NAME:-}}
-    image: docker.io/itzg/minecraft-server:java${JAVA_VERSION}-${JAVA_TYPE:-alpine}
+    image: docker.io/itzg/minecraft-server:java${JAVA_VERSION}
     tty: true
     stdin_open: true
     stop_grace_period: 30s
