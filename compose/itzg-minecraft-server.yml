@@ -6,8 +6,6 @@ services:
     stdin_open: true
     stop_grace_period: 30s
     restart: unless-stopped
-    networks:
-      - mc_${SERVER_TYPE}_${CREATED_AT}_${CONTAINER_NAME:-${MODPACK_NAME:-}}_network
     secrets:
       - curseforge_api_key
     env_file:
