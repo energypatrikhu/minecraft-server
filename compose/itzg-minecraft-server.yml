@@ -21,5 +21,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
       - ${SERVER_DIR}/${SERVER_TYPE}_${CREATED_AT}_${CONTAINER_NAME:-${MODPACK_NAME:-}}:/data
+      - ${SERVER_DIR}/${SERVER_TYPE}_${CREATED_AT}_${CONTAINER_NAME:-${MODPACK_NAME:-}}/local-config:/config
+      - ${SERVER_DIR}/${SERVER_TYPE}_${CREATED_AT}_${CONTAINER_NAME:-${MODPACK_NAME:-}}/local-mods:/mods
+      - ${SERVER_DIR}/${SERVER_TYPE}_${CREATED_AT}_${CONTAINER_NAME:-${MODPACK_NAME:-}}/local-plugins:/plugins
     labels:
       com.centurylinklabs.watchtower.enable: false
