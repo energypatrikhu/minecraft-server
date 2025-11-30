@@ -3,6 +3,8 @@ services:
     container_name: mc_${SERVER_TYPE}_${CREATED_AT}_${CONTAINER_NAME:-${MODPACK_NAME:-}}_backup
     image: docker.io/itzg/mc-backup
     restart: unless-stopped
+    networks:
+      - mc_${SERVER_TYPE}_${CREATED_AT}_${CONTAINER_NAME:-${MODPACK_NAME:-}}_network
     env_file:
       - ../env/.backup.env
       - ../env/.tz.env
