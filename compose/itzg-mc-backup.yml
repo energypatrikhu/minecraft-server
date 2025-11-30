@@ -5,8 +5,9 @@ services:
     restart: unless-stopped
     env_file:
       - ../env/.backup.env
-      - ../env/.tz.env
     volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - ${SERVER_DIR}/${SERVER_TYPE}_${CREATED_AT}_${CONTAINER_NAME:-${MODPACK_NAME:-}}:/data:ro
       - ${BACKUP_DIR}/${SERVER_TYPE}_${CREATED_AT}_${CONTAINER_NAME:-${MODPACK_NAME:-}}:/backups
     labels:
