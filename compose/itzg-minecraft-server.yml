@@ -24,5 +24,6 @@ services:
       - ${SERVER_DIR}/${SERVER_TYPE}_${CREATED_AT}_${CONTAINER_NAME:-${MODPACK_NAME:-}}/local-config:/config
       - ${SERVER_DIR}/${SERVER_TYPE}_${CREATED_AT}_${CONTAINER_NAME:-${MODPACK_NAME:-}}/local-mods:/mods
       - ${SERVER_DIR}/${SERVER_TYPE}_${CREATED_AT}_${CONTAINER_NAME:-${MODPACK_NAME:-}}/local-plugins:/plugins
+      - ${SERVER_DIR}/${SERVER_TYPE}_${CREATED_AT}_${CONTAINER_NAME:-${MODPACK_NAME:-}}/local-data:/host
     labels:
       com.centurylinklabs.watchtower.enable: false
