@@ -2,7 +2,7 @@
 # Backup configuration           #
 # ============================== #
 BACKUP = false
-BACKUP_DIR = ../../backups
+BACKUP_DIR = ../../backups # Absolute or relative to compose file (default: "$MINECRAFT_DIR/backups" = "../../backups")
 BACKUP_INTERVAL = 3h
 BACKUP_INITIAL_DELAY = 15m
 BACKUP_COUNT = 24
