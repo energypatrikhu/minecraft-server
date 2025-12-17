@@ -1,6 +1,1 @@
-configs/*
-!configs/*.example
-!configs/examples
-secrets/*
-!secrets/*.example
 servers/*

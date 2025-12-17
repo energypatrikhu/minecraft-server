@@ -1,183 +1,198 @@
-# Minecraft Server Management
+# Minecraft Server Configuration Repository
 
-> **Heads up:** This is a hobby project. While useful, it may contain bugs or breaking changes. Use at your own risk and always review scripts before running them on important systems.
+A comprehensive configuration repository for deploying Minecraft servers using Docker and the [itzg/minecraft-server](https://github.com/itzg/docker-minecraft-server) Docker images. This repository provides templates and compose files for various Minecraft server platforms including Vanilla, Fabric, Forge, NeoForge, CurseForge, Modrinth, and FTB.
 
-This project provides a flexible Docker Compose-based setup for running various Minecraft server types (CurseForge, FTB, Fabric, NeoForge, etc.) with optional backup support and easy mod management.
+> **Note:** This repository contains configuration files and templates only. Server management commands can be found in the [EPX](https://github.com/energypatrikhu/epx) repository.
 
-This project is based on the [itzg/minecraft-server](https://github.com/itzg/docker-minecraft-server) and the [itzg/mc-backup](https://github.com/itzg/docker-mc-backup).
+## Overview
 
----
+This repository is structured to support multiple Minecraft server instances with different configurations and platforms. It uses Docker Compose for container orchestration and provides a templating system for easy server deployment and configuration.
 
-## Sourcing the Script
-**Note:** You must source `mc.sh` to use the `mc`, `mc.create`, and `mc.help` commands as shell functions:
-> You can add it to your `.bashrc` file if you don't feel like to source the file everytime before usage.
-```sh
-source ./mc.sh
-# Now you can use: mc, mc.create, mc.help
+## Features
+
+- **Multi-Platform Support**: Templates for Vanilla, Fabric, Forge, NeoForge, CurseForge, Modrinth, and FTB servers
+- **Automated Backups**: Integrated backup solution using itzg/mc-backup
+- **Mod Management**: Support for automatic mod downloads from CurseForge and Modrinth
+- **Docker-Based**: Containerized deployment for easy management and isolation
+- **Templating System**: Pre-configured templates for quick server deployment
+- **Flexible Configuration**: Environment-based configuration for different server types
+
+## Docker Compose Services
+
+### Minecraft Server (`itzg-mc.yml`)
+
+The main Minecraft server service with the following features:
+
+- **Container Name**: `mc-${SERVER_DIR}-server`
+- **Image**: `itzg/minecraft-server:java${JAVA_VERSION}`
+- **Graceful Shutdown**: 30-second stop grace period
+- **Auto-Restart**: Unless manually stopped
+- **Port Mapping**: Configurable server port (default: 25565)
+
+**Volumes:**
+- Server data: `servers/${SERVER_DIR}/data`
+- Extras, configs, mods, and plugins directories
+- Time synchronization with host
+
+**Secrets:**
+- CurseForge API key
+- Ops list
+- Whitelist
+
+### Backup Service (`itzg-mc-backup.yml`)
+
+Automated backup service for Minecraft servers:
+
+- **Container Name**: `mc-${SERVER_DIR}-backup`
+- **Image**: `itzg/mc-backup`
+- **Read-Only Access**: Server data mounted as read-only
+
+### Network Configuration (`itzg-config.yml`)
+
+- **Network**: `mc-${SERVER_DIR}-network` with IPv6 support
+- **Secrets Management**: Centralized secrets configuration
+
+## Configuration Templates
+
+### Platform Templates
+
+Each platform template includes version-specific configuration:
+
+#### Vanilla
+```bash
+MEMORY = 6G
+JAVA_VERSION = 17
+VERSION = 1.12.2
 ```
-Running `./mc.sh` directly only does not do anything.
+
+#### Fabric
+```bash
+LOADER_VERSION = 0.16.14
+LAUNCHER_VERSION = 1.0.3
+MEMORY = 6G
+JAVA_VERSION = 21
+VERSION = 1.21.5
+```
+
+### Server Properties Template
+
+Default server configuration includes:
+- **Difficulty**: Hard
+- **Game Mode**: Survival
+- **Max Players**: 8
+- **PVP**: Disabled
+- **View Distance**: 8
+- **Simulation Distance**: 8
+- **Online Mode**: Enabled
+- **Network Compression**: 256 threshold
+
+### Backup Configuration
+
+Default backup settings:
+- **Interval**: 3 hours
+- **Initial Delay**: 15 minutes
+- **Retention Count**: 24 backups
+- **Default Location**: `../backups`
+
+## Supported Platforms
+
+| Platform | Type | Description |
+|----------|------|-------------|
+| **Vanilla** | Official | Standard Minecraft server |
+| **Fabric** | Modded | Lightweight modding framework |
+| **Forge** | Modded | Popular modding platform |
+| **NeoForge** | Modded | Modern Forge fork |
+| **CurseForge** | Modpack | CurseForge modpack support |
+| **Modrinth** | Modpack | Modrinth modpack support |
+| **FTB** | Modpack | Feed The Beast modpacks |
+
+## Environment Variables
+
+Key environment variables used across services:
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `SERVER_DIR` | Server instance directory name | `my-server` |
+| `SERVER_TYPE` | Platform type | `fabric`, `vanilla`, etc. |
+| `SERVER_PORT` | Server port | `25565` |
+| `JAVA_VERSION` | Java version for the container | `17`, `21` |
+| `VERSION` | Minecraft version | `1.21.5`, `LATEST` |
+| `MEMORY` | Server memory allocation | `6G` |
+| `BACKUP_DIR` | Backup storage location | `../backups` |
+
+## Secrets Management
+
+The repository uses Docker secrets for sensitive data:
+
+- **curseforge_api_key.txt**: CurseForge API key for mod downloads
+- **ops.txt**: Server operators list (per-server)
+- **whitelist.txt**: Whitelisted players (per-server)
+- **mods.curseforge.txt**: CurseForge mod IDs (per-server)
+- **mods.modrinth.txt**: Modrinth mod IDs (per-server)
+
+## Mod Management
+
+### CurseForge Mods
+List mod IDs or file IDs in `mods.curseforge.txt`:
+```
+# One mod ID per line
+123456
+789012
+```
+
+### Modrinth Mods
+List mod IDs or file IDs in `mods.modrinth.txt`:
+```
+# One mod ID per line
+fabric-api
+sodium
+```
+
+## Usage
+
+> **Important:** Server management commands are not included in this repository. Refer to the EPX repository for deployment and management commands.
+
+This repository serves as a configuration and template source for Minecraft server deployments. The actual server instances are created in the `servers/` directory (which is gitignored).
+
+## Server Instance Structure
+
+Each server instance in `servers/${SERVER_DIR}/` follows this structure:
+```
+servers/my-server/
+├── data/              # Main server data (world, configs)
+├── extras/
+│   ├── data/
+│   ├── config/
+│   ├── mods/
+│   └── plugins/
+├── ops.txt
+├── whitelist.txt
+├── mods.curseforge.txt
+└── mods.modrinth.txt
+```
+
+## Networking
+
+- Each server instance gets its own Docker network: `mc-${SERVER_DIR}-network`
+- IPv6 is enabled by default
+- Port mapping is configurable per server instance
+
+## Time Synchronization
+
+Servers automatically sync with the host system time:
+- `/etc/localtime` (read-only)
+- `/etc/timezone` (read-only)
+
+## References
+
+- [itzg/minecraft-server Documentation](https://docker-minecraft-server.readthedocs.io/)
+- [itzg/mc-backup Documentation](https://github.com/itzg/docker-mc-backup)
+- [Fabric Server Setup](https://fabricmc.net/use/server/)
+
+## License
+
+Configuration templates and compose files for Minecraft server deployment.
 
 ---
 
-## Environments
-
-- **Default Environment Files:**
-  - Located in `configs/` (e.g., `configs/curseforge_2025-02-16_all-the-mods-10.env`)
-  - Each server has its own `.env` file. The filename format is:
-
-    ```
-    <platform>_<YYYY-MM-DD>_<modpack-or-server-name>.env
-    ```
-
-    Example: `curseforge_2025-02-16_all-the-mods-10.env`
-
-- **Changeable Variables:**
-  - Most variables in the `.env` files can be changed to suit your needs (e.g., `SERVER_NAME`, `WHITELIST`, `OPS`, `BACKUP`, etc.).
-  - See `configs/examples/` for template files for each platform.
-  - For more environment variables checkout the files located in `env/`.
-
----
-
-## CurseForge API Key
-
-- To download mods from CurseForge, you **must** set up your API key:
-  - Copy `secrets/curseforge_api_key.txt.example` to `secrets/curseforge_api_key.txt` and add your key.
-
----
-
-## Example Server Config
-
-- **Filename Structure:**
-  - `configs/<platform>_<date>_<name>.env`
-- **Example Content:**
-
-    ```ini
-    # configs/curseforge_2025-02-16_all-the-mods-10.env.example
-    CREATED_AT = 2025-02-16
-    SERVER_NAME = All The Mods 10
-    MODPACK_NAME = all-the-mods-10
-    MODPACK_VERSION = 2.39
-    MEMORY = 6G
-    JAVA_VERSION = 21
-    BACKUP = true
-    WHITELIST = player1, player2
-    OPS = player1
-    # ... other variables ...
-    ```
-
----
-
-## Enabling Backups
-
-- To enable the backup container, set `BACKUP = true` in your server's `.env` file.
-- To disable backups, either omit the `BACKUP` variable or set `BACKUP = false`.
-- The backup container will create backups in the `/opt/minecraft-backups/<platform>_<date>_<name>/` directory. (the base directory can be changed in the `mc.sh` script by changing the variable `__dcf_mc__backup_dir`)
-
----
-
-## Directory Structure
-
-- **Default Directories:**
-  - Server data: `/opt/minecraft-servers/<platform>_<date>_<name>/`
-    > Can be changed in `mc.sh` by changing the variable `__dcf_mc__server_dir`
-  - Configs: `configs/`
-  - Compose files: `compose/`
-  - Platform configs: `platforms/`
-  - Secrets: `secrets/`
-  - Backups: `/opt/minecraft-backups`
-    > Can be changed in `mc.sh` by changing the variable `__dcf_mc__backup_dir`
-
----
-
-## Platform Configs
-
-- Platform-specific Docker Compose and config files are in `compose/` and `platforms/`.
-- Example Compose files:
-  - `compose/docker-compose.base.yml` (no backup)
-  - `compose/docker-compose.full.yml` (with backup)
-
----
-
-## Server Location
-
-- Each server runs in its own directory under `/opt/minecraft-servers/` (e.g., `/opt/minecraft-servers/fabric_2025-07-05_bingo/`).
-
----
-
-## Whitelist, Ops, and Players
-
-- **Whitelist:**
-  - Controlled by the `WHITELIST` variable in the `.env` file, by default it is empty.
-  - To enable, list players in `WHITELIST`. (e.g., `WHITELIST = player1, player2`).
-- **Opped Players:**
-  - Set via the `OPS` variable (comma-separated list).
-
----
-
-## Adding Mods
-
-- **CurseForge:**
-  - Requires a valid API key in `secrets/curseforge_api_key.txt`.
-  - List mods in the `CURSEFORGE_MODS` variable in your `.env` file.
-- **Modrinth:**
-  - Supported via the `MODRINTH_MODS` variable as well.
-
----
-
-## Timezone
-
-- To change the timezone, edit or create `env/.tz.env` and set the `TZ` variable (e.g., `TZ=Europe/Berlin`).
-
----
-
-## Setting Up a Server (Example)
-
-1. Copy an example config from `configs/examples/`:
-
-    ```sh
-    cp configs/examples/@example.curseforge.env configs/curseforge_2025-02-16_all-the-mods-10.env
-    # Edit the new file as needed
-    ```
-2. Set up your CurseForge API key if using CurseForge mods.
-3. Start the server:
-
-    ```sh
-    mc curseforge_2025-02-16_all-the-mods-10
-    ```
-
----
-
-For more details, see comments in the example config files and the `mc.sh` script.
-
----
-
-## Creating a New Server Config with `mc.create`
-
-The `mc.create` command helps you quickly generate a new server configuration file from a template.
-
-- **Usage:**
-  ```sh
-  mc.create <server_type> [server_name]
-  ```
-  - `<server_type>`: The type of server (e.g., `curseforge`, `fabric`, `forge`, etc.).
-  - `[server_name]`: (Optional) The name for your server or modpack.
-
-- **How it works:**
-  - Copies the appropriate example config from `configs/examples/@example.<server_type>.env`.
-  - Creates a new file in `configs/` named `<server_type>_<YYYY-MM-DD>_<server_name>.env` (date is today).
-  - Fills in `CREATED_AT` and `SERVER_NAME` automatically.
-
-- **Example:**
-  ```sh
-  mc.create curseforge all-the-mods-10
-  # Creates configs/curseforge_2025-07-08_all-the-mods-10.env
-  ```
-  Edit the new file as needed, then start your server as usual.
-
-- **Tip:**
-  If you omit `[server_name]`, the filename will include `CHANGEME` and you'll be prompted to rename it.
-
----
-
-# Credits
-This project is inspired by the work of [itzg](https://github.com/itzg) and aims to provide a user-friendly way to manage Minecraft servers with Docker Compose.
+**Note**: This is a configuration repository. For server management commands and deployment automation, please refer to the EPX repository.

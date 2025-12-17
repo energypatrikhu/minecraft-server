@@ -1,0 +1,26 @@
+services:
+  minecraft-server:
+    container_name: mc-${SERVER_DIR}-server
+    image: docker.io/itzg/minecraft-server:java${JAVA_VERSION} # 8, 11, 17, 20, ...
+    tty: true
+    stdin_open: true
+    stop_grace_period: 30s
+    restart: unless-stopped
+    secrets:
+      - curseforge_api_key
+      - ops
+      - whitelist
+    env_file:
+      - ../internals/env/.${SERVER_TYPE}.env
+      - ../internals/env/.container.env
+      - ../internals/env/.properties.env
+    ports:
+      - ${SERVER_PORT:-25565}:25565/tcp
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ../servers/${SERVER_DIR}/data:/data
+      - ../servers/${SERVER_DIR}/extras/data:/extras
+      - ../servers/${SERVER_DIR}/extras/config:/config
+      - ../servers/${SERVER_DIR}/extras/mods:/mods
+      - ../servers/${SERVER_DIR}/extras/plugins:/plugins

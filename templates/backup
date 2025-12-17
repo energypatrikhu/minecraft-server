@@ -1,0 +1,6 @@
+# Backup configuration
+BACKUP = false
+BACKUP_DIR = ../backups
+BACKUP_INTERVAL = 3h
+BACKUP_INITIAL_DELAY = 15m
+BACKUP_COUNT = 24

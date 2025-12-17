@@ -1,8 +1,16 @@
 secrets:
   curseforge_api_key:
     file: ../secrets/curseforge_api_key.txt
+  mods-curseforge:
+    file: ../servers/${SERVER_DIR}/mods.curseforge.txt
+  mods-modrinth:
+    file: ../servers/${SERVER_DIR}/mods.modrinth.txt
+  ops:
+    file: ../servers/${SERVER_DIR}/ops.txt
+  whitelist:
+    file: ../servers/${SERVER_DIR}/whitelist.txt
 
 networks:
   default:
-    name: mc_${SERVER_TYPE}_${CREATED_AT}_${CONTAINER_NAME:-${MODPACK_NAME:-}}_network
+    name: mc-${SERVER_DIR}-network
     enable_ipv6: true

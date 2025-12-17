@@ -1,0 +1,7 @@
+# Platform configuration
+MODPACK_NAME = cobblemon-fabric # https://modrinth.com/modpack/[cobblemon-fabric] -> cobblemon-fabric
+MODPACK_VERSION = 1.5.2 # https://modrinth.com/modpack/cobblemon-fabric/version/[1.5.2] -> 1.5.2
+
+# Server configuration
+MEMORY = 6G
+JAVA_VERSION = 17

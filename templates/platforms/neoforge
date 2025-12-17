@@ -1,0 +1,7 @@
+# Platform configuration
+NEOFORGE_VERSION = latest # latest, beta
+
+# Server configuration
+MEMORY = 6G
+JAVA_VERSION = 17
+VERSION = 1.20.4

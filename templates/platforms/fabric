@@ -1,0 +1,13 @@
+# https://fabricmc.net/use/server/
+# Minecraft Version -> VERSION
+# Fabric Loader Version -> LOADER_VERSION
+# Installer Version -> LAUNCHER_VERSION
+
+# Platform configuration
+LOADER_VERSION = 0.16.14
+LAUNCHER_VERSION = 1.0.3
+
+# Server configuration
+MEMORY = 6G
+JAVA_VERSION = 21
+VERSION = 1.21.5

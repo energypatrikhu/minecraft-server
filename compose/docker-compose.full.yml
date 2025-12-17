@@ -1,4 +1,0 @@
-include:
-  - ./itzg-config.yml
-  - ./itzg-minecraft-server.yml
-  - ./itzg-mc-backup.yml
