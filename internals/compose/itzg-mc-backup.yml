@@ -8,5 +8,5 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      - ../servers/${SERVER_DIR}:/data:ro
+      - ../../servers/${SERVER_DIR}:/data:ro
       - ${BACKUP_DIR}/${SERVER_DIR}:/backups

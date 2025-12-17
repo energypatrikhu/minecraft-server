@@ -19,8 +19,8 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      - ../servers/${SERVER_DIR}/data:/data
-      - ../servers/${SERVER_DIR}/extras/data:/extras
-      - ../servers/${SERVER_DIR}/extras/config:/config
-      - ../servers/${SERVER_DIR}/extras/mods:/mods
-      - ../servers/${SERVER_DIR}/extras/plugins:/plugins
+      - ../../servers/${SERVER_DIR}/data:/data
+      - ../../servers/${SERVER_DIR}/extras/data:/extras
+      - ../../servers/${SERVER_DIR}/extras/config:/config
+      - ../../servers/${SERVER_DIR}/extras/mods:/mods
+      - ../../servers/${SERVER_DIR}/extras/plugins:/plugins
