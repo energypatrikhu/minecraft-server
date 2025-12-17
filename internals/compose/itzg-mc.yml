@@ -11,9 +11,9 @@ services:
       - ops
       - whitelist
     env_file:
-      - ../internals/env/.${SERVER_TYPE}.env
-      - ../internals/env/.container.env
-      - ../internals/env/.properties.env
+      - ../env/.${SERVER_TYPE}.env
+      - ../env/.container.env
+      - ../env/.properties.env
     ports:
       - ${SERVER_PORT:-25565}:25565/tcp
     volumes:

@@ -2,13 +2,13 @@ secrets:
   curseforge_api_key:
     file: ../secrets/curseforge_api_key.txt
   mods-curseforge:
-    file: ../servers/${SERVER_DIR}/mods.curseforge.txt
+    file: ../../servers/${SERVER_DIR}/mods.curseforge.txt
   mods-modrinth:
-    file: ../servers/${SERVER_DIR}/mods.modrinth.txt
+    file: ../../servers/${SERVER_DIR}/mods.modrinth.txt
   ops:
-    file: ../servers/${SERVER_DIR}/ops.txt
+    file: ../../servers/${SERVER_DIR}/ops.txt
   whitelist:
-    file: ../servers/${SERVER_DIR}/whitelist.txt
+    file: ../../servers/${SERVER_DIR}/whitelist.txt
 
 networks:
   default:
