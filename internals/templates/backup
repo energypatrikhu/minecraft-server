@@ -1,4 +1,6 @@
-# Backup configuration
+# ============================== #
+# Backup configuration           #
+# ============================== #
 BACKUP = false
 BACKUP_DIR = ../../backups
 BACKUP_INTERVAL = 3h
