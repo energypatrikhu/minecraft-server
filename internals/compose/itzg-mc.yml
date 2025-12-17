@@ -11,7 +11,7 @@ services:
       - ops
       - whitelist
     env_file:
-      - ../env/.${SERVER_TYPE}.env
+      - ../env/platforms/.${SERVER_TYPE}.env
       - ../env/.container.env
       - ../env/.properties.env
     ports:
