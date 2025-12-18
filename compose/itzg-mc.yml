@@ -14,6 +14,7 @@ services:
       - ../env/platforms/.${SERVER_TYPE}.env
       - ../env/.container.env
       - ../env/.properties.env
+      - ../../servers/${SERVER_DIR}/config.env
     ports:
       - ${SERVER_PORT:-25565}:25565/tcp
     volumes:

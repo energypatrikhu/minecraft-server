@@ -5,6 +5,7 @@ services:
     restart: unless-stopped
     env_file:
       - ../env/.backup.env
+      - ../../servers/${SERVER_DIR}/config.env
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
