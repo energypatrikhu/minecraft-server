@@ -1,11 +1,11 @@
-# ============================== #
-# Platform configuration         #
-# ============================== #
+# ==============================
+# Platform configuration
+# ==============================
 MODPACK_NAME = enigmatica9expert # https://www.curseforge.com/minecraft/modpacks/[enigmatica9expert] -> enigmatica9expert
 MODPACK_VERSION = 1.17.2 # https://www.curseforge.com/minecraft/modpacks/enigmatica9expert/files/4995106 -> Enigmatica 9 Expert [1.17.2] -> 1.17.2
 
-# ============================== #
-# Server configuration           #
-# ============================== #
+# ==============================
+# Server configuration
+# ==============================
 MEMORY = 6G
 JAVA_VERSION = 17

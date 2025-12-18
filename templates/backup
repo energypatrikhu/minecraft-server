@@ -1,6 +1,6 @@
-# ============================== #
-# Backup configuration           #
-# ============================== #
+# ==============================
+# Backup configuration
+# ==============================
 BACKUP = false
 BACKUP_DIR = ../../backups # Absolute or relative to compose file (default: "$MINECRAFT_DIR/backups" = "../../backups")
 BACKUP_INTERVAL = 3h

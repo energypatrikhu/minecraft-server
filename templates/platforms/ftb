@@ -1,11 +1,11 @@
-# ============================== #
-# Platform configuration         #
-# ============================== #
+# ==============================
+# Platform configuration
+# ==============================
 MODPACK_ID = 23 # https://www.feed-the-beast.com/modpacks/[23]-ftb-infinity-evolved-17 -> 23
 MODPACK_VERSION_ID = 99 # https://api.feed-the-beast.com/v1/modpacks/public/modpack/23/[99]/server/linux -> 99
 
-# ============================== #
-# Server configuration           #
-# ============================== #
+# ==============================
+# Server configuration
+# ==============================
 MEMORY = 6G
 JAVA_VERSION = 8
