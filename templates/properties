@@ -6,3 +6,4 @@ DIFFICULTY = hard
 MOTD = A Minecraft Server
 ONLINE_MODE = true
 PVP = false
+ENABLE_WHITELIST = false
