@@ -9,4 +9,4 @@ secrets:
 networks:
   default:
     name: mc-${SERVER_DIR}-network
-    enable_ipv6: true
+    enable_ipv6: ${ENABLE_IPV6:-false}
