@@ -8,6 +8,8 @@ services:
     restart: unless-stopped
     secrets:
       - curseforge_api_key
+      - mods-curseforge
+      - mods-modrinth
     env_file:
       - ../env/platforms/.${SERVER_TYPE}.env
       - ../env/.container.env
