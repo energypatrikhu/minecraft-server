@@ -8,8 +8,6 @@ services:
     restart: unless-stopped
     secrets:
       - curseforge_api_key
-      - ops
-      - whitelist
     env_file:
       - ../env/platforms/.${SERVER_TYPE}.env
       - ../env/.container.env
