@@ -7,9 +7,10 @@ EXCLUDE_MODS =
 
 # ==============================
 # Mod configuration
+# Uncomment to enable Modrinth projects or CurseForge files
 # ==============================
-USE_MODRINTH_PROJECTS = false # Set to true to enable Modrinth mod downloading from mods.modrinth.txt
-USE_CURSEFORGE_FILES = false # Set to true to enable CurseForge mod downloading from mods.curseforge.txt
+# USE_MODRINTH_PROJECTS = true
+# USE_CURSEFORGE_FILES = true
 
 # ==============================
 # Server configuration
