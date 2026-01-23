@@ -5,6 +5,12 @@ MODPACK_ID = 23 # https://www.feed-the-beast.com/modpacks/[23]-ftb-infinity-evol
 MODPACK_VERSION_ID = 99 # https://api.feed-the-beast.com/v1/modpacks/public/modpack/23/[99]/server/linux -> 99
 
 # ==============================
+# Mod configuration
+# ==============================
+USE_MODRINTH_PROJECTS = false # Set to true to enable Modrinth mod downloading from mods.modrinth.txt
+USE_CURSEFORGE_FILES = false # Set to true to enable CurseForge mod downloading from mods.curseforge.txt
+
+# ==============================
 # Server configuration
 # ==============================
 MEMORY = 6G

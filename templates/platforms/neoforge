@@ -4,6 +4,12 @@
 NEOFORGE_VERSION = latest # latest, beta
 
 # ==============================
+# Mod configuration
+# ==============================
+USE_MODRINTH_PROJECTS = false # Set to true to enable Modrinth mod downloading from mods.modrinth.txt
+USE_CURSEFORGE_FILES = false # Set to true to enable CurseForge mod downloading from mods.curseforge.txt
+
+# ==============================
 # Server configuration
 # ==============================
 MEMORY = 6G
